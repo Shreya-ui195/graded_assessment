@@ -1,0 +1,48 @@
+let productData = `[
+    {"id": 101, "name": "Phone Charger", "category": "Electronics", "price": 12.70, "available": true},
+    {"id": 102, "name": "Yoga Blocks", "category": "Fitness", "price": 10.50, "available": true},
+    {"id": 103, "name": "Electric Kettle", "category": "Kitchen", "price": 60.00, "available": false},
+    {"id": 104, "name": "Mouse", "category": "Electronics", "price": 25.26, "available": true},
+    {"id": 105, "name": "Chair", "category": "Furniture", "price": 200.00, "available": true}
+]`;
+
+function loadProducts() {
+    return JSON.parse(productData);
+}
+
+function addNewItem(item) {
+    let items = loadProducts();
+    items.push(item);
+    console.log("New item added:", item);
+    return items;
+}
+
+function changePrice(itemId, newPrice) {
+    let items = loadProducts();
+    let item = items.find(product => product.id === itemId);
+    if (item) {
+        item.price = newPrice;
+        console.log(`Updated price for item ID ${itemId}: $${newPrice}`);
+    } else {
+        console.log(`No item found with ID ${itemId}.`);
+    }
+    return items;
+}
+
+function getInStockItems() {
+    let items = loadProducts();
+    return items.filter(item => item.available);
+}
+
+function findItemsByCategory(category) {
+    let items = loadProducts();
+    return items.filter(item => item.category === category);
+}
+
+console.log("All Items:", loadProducts());
+console.log("Adding a new item to the list...");
+addNewItem({"id": 106, "name": "Travel Mug", "category": "Kitchen", "price": 9.99, "available": true});
+console.log("Changing price of item ID 103...");
+changePrice(103, 32.00);
+console.log("In Stock Items:", getInStockItems());
+console.log("Items in Furniture Category:", findItemsByCategory("Furniture"));
